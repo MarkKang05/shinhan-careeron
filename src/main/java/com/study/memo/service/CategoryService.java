@@ -35,7 +35,7 @@ public class CategoryService {
 
     public Category getCategoryById(Long id){
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "NO 카테고리"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CategoryId not found"));
     }
 
     public Page<Category> getCategories(Pageable pageable, String keyword) {
@@ -44,5 +44,30 @@ public class CategoryService {
         }else{
             return categoryRepository.findByNameContains(pageable, keyword);
         }
+    }
+
+    public Category updateCategoryById(Long id, CategoryDTO categoryDTO){
+        Optional<Category> category = categoryRepository.findById(id);
+        if(category.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "CategoryId not found");
+        }
+
+        Category buildCategory = Category.builder()
+                .id(id)
+                .name(categoryDTO.getName())
+                .build();
+
+        buildCategory = categoryRepository.save(buildCategory);
+
+        return buildCategory;
+
+    }
+
+    public void deleteCategoryByid(Long id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        if(category.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "CategoryId not found");
+        }
+        categoryRepository.deleteById(id);
     }
 }

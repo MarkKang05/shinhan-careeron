@@ -29,4 +29,15 @@ public class CategoryController {
     public Page<Category> getCategories(Pageable pageable, @RequestParam String keyword){
         return categoryService.getCategories(pageable, keyword);
     }
+
+    @PutMapping("/{id}")
+    public Category updateCategoryById(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO){
+        return categoryService.updateCategoryById(id, categoryDTO);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteCategoryById(@PathVariable Long id){
+        categoryService.deleteCategoryByid(id);
+    }
+
 }

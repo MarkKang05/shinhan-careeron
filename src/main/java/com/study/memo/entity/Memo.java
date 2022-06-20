@@ -1,26 +1,28 @@
 package com.study.memo.entity;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@ToString
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Memo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
-    Category category;
+    private Category category;
 
     @Column(length = 100)
-    String name;
+    private String name;
 
     @Column(columnDefinition = "TEXT")
-    String content;
+    private String content;
 
 }

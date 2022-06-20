@@ -1,27 +1,22 @@
 package com.study.memo.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@ToString
+@Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(length = 100, unique = true)
-    String name;
+    private String name;
 
-    @Builder
-    public Category(String name){
-        this.name = name;
-    }
 }
